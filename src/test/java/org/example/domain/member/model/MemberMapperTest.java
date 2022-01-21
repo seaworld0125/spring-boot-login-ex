@@ -2,6 +2,8 @@ package org.example.domain.member.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -17,7 +19,10 @@ class MemberMapperTest {
 
     @Test
     void memberDtoToMemberTest() {
-        MemberDto memberDto = new MemberDto("newMember", "9999");
+        MemberDto memberDto = MemberDto.builder()
+                .name("test")
+                .password("1111")
+                .build();
 
         MemberEntity memberEntity = memberMapper.INSTANCE.memberDtoToMember(memberDto);
         assertEquals(memberEntity.getName(), memberDto.getName());

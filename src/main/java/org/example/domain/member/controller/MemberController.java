@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/member")
 public class MemberController {
 
-    @PreAuthorize("hasAnyAuthority(ROLE_USER)")
+    @GetMapping("/")
+    public String home() {
+        return "Member Home";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     @GetMapping("/user")
     public Authentication getUserSecurityInfo() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    @PreAuthorize("hasAnyAuthority(ROLE_ADMIN)")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping("/admin")
     public Authentication getAdminSecurityInfo() {
         return SecurityContextHolder.getContext().getAuthentication();

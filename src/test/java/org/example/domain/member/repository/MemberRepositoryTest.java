@@ -16,16 +16,17 @@ class MemberRepositoryTest {
 
     @Test
     public void save() {
-        MemberEntity memberEntity = memberRepository.save(EntityFactory.createMemberEntity());
+        MemberEntity memberEntity = memberRepository.save(EntityFactory.createNormalMemberEntity());
 
         assertEquals(memberEntity.getPassword(), EntityFactory.testPassword);
     }
 
     @Test
     public void find() {
-        MemberEntity memberEntity = memberRepository.save(EntityFactory.createMemberEntity());
+        MemberEntity memberEntity = memberRepository.save(EntityFactory.createNormalMemberEntity());
 
-        MemberEntity savedEntity = memberRepository.findByName(EntityFactory.testName).get(0);
+        MemberEntity savedEntity = memberRepository.findMemberEntityByName(EntityFactory.testName)
+                                                .orElse(EntityFactory.createNullMemberEntity());
 
         assertEquals(memberEntity.getName(), savedEntity.getName());
     }

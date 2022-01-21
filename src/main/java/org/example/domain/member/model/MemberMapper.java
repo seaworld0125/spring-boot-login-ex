@@ -8,7 +8,7 @@ public interface MemberMapper {
 
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "password", target = "password")
     MemberEntity memberDtoToMember(MemberDto memberDto);
+
+    MemberDto memberToMemberDto(MemberEntity memberEntity);
 }

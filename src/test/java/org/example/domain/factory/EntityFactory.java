@@ -8,10 +8,16 @@ public class EntityFactory {
     public static final String testName = "tester";
     public static final String testPassword = "1234";
 
-    public static MemberEntity createMemberEntity() {
+    public static MemberEntity createNormalMemberEntity() {
         return MemberEntity.builder()
                 .name(testName)
                 .password(testPassword)
+                .build();
+    }
+    public static MemberEntity createNullMemberEntity() {
+        return MemberEntity.builder()
+                .name("")
+                .password("")
                 .build();
     }
 }

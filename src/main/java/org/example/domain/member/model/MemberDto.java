@@ -1,5 +1,6 @@
 package org.example.domain.member.model;
 
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,14 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
+@AllArgsConstructor
 public class MemberDto {
 
+    private Long memberId;
     private String name;
     private String password;
 
-    @Builder
-    public MemberDto(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
+    private Set<MemberAuthority> authorities;
+
 }
