@@ -30,6 +30,9 @@ dependencies {
 //    Security
     implementation('org.springframework.boot:spring-boot-starter-security')
 
+//    JWT
+    implementation('com.auth0:java-jwt:3.18.3')
+
 //    testing
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.security:spring-security-test')

@@ -1,18 +1,14 @@
 package org.example.domain.member.service;
 
 import lombok.Builder;
-import org.example.core.auth.Authority;
-import org.example.domain.member.model.MemberAuthority;
-import org.example.domain.member.model.MemberEntity;
+import org.example.domain.member.model.Member;
 import org.example.domain.member.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
@@ -28,18 +24,34 @@ public class MemberService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-    public MemberEntity save(MemberEntity memberEntity) {
-        return memberRepository.save(memberEntity);
+    public Member save(Member member) {
+        return memberRepository.save(member);
     }
-
+    /*
     public void addAuthority(Long memberId, String authority) {
-        memberRepository.findById(memberId).ifPresent(memberEntity -> {
-            MemberAuthority newRole = MemberAuthority.builder().memberId(memberId).authority(authority).build();
+        memberRepository.findById(memberId).ifPresent(member -> {
+            MemberAuthority newRole = MemberAuthority.builder().memberId(memberId)
+                    .authority(authority).build();
 
-            if(!memberEntity.getAuthorities().contains(newRole)) {
-                memberEntity.getAuthorities().add(newRole);
-                save(memberEntity);
+            if (!member.getAuthorities().contains(newRole)) {
+                member.getAuthorities().add(newRole);
+                save(member);
             }
         });
     }
+
+    public void removeAuthority(Long memberId, String authority) {
+        memberRepository.findById(memberId).ifPresent(member -> {
+            if (member.getAuthorities() == null) {
+                return;
+            }
+            MemberAuthority targetRole = MemberAuthority.builder().memberId(memberId)
+                    .authority(authority).build();
+            if(member.getAuthorities().contains(targetRole)) {
+                member.getAuthorities().remove(targetRole);
+                save(member);
+            }
+        });
+    }
+    */
 }

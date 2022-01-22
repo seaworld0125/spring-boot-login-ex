@@ -1,5 +1,6 @@
 package org.example.domain.member.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.core.auth.Authority;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Getter
@@ -26,7 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class MemberEntity implements UserDetails {
+public class Member implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,13 +41,17 @@ public class MemberEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-//    @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "user_id"))
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //    @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "user_id"))
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @Builder.Default
+    @Column(nullable = false)
     @Builder.Default
-    private Set<MemberAuthority> authorities = new HashSet<>();
+    private String authority = Authority.ROLE_USER;
 
     @Override
-    public Set<MemberAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(this.authority));
         return authorities;
     }
 

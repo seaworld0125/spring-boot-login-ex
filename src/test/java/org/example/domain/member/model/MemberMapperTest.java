@@ -24,8 +24,8 @@ class MemberMapperTest {
                 .password("1111")
                 .build();
 
-        MemberEntity memberEntity = memberMapper.INSTANCE.memberDtoToMember(memberDto);
-        assertEquals(memberEntity.getName(), memberDto.getName());
-        assertEquals(memberEntity.getPassword(), memberDto.getPassword());
+        Member member = memberMapper.INSTANCE.memberDtoToMember(memberDto);
+        assertEquals(member.getName(), memberDto.getName());
+        assertEquals(member.getPassword(), memberDto.getPassword());
     }
 }

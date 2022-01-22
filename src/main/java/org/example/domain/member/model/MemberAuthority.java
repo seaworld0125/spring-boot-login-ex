@@ -1,3 +1,4 @@
+/*
 package org.example.domain.member.model;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.IdClass;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
 @Entity
 @IdClass(MemberAuthority.class)
 public class MemberAuthority implements GrantedAuthority {
@@ -27,3 +30,4 @@ public class MemberAuthority implements GrantedAuthority {
     @Column(nullable = false)
     private String authority;
 }
+*/
