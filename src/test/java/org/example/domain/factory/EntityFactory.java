@@ -10,14 +10,14 @@ public class EntityFactory {
 
     public static Member createNormalMemberEntity() {
         return Member.builder()
-                .name(testName)
+                .email(testName)
                 .password(testPassword)
                 .authority(Authority.ROLE_USER)
                 .build();
     }
     public static Member createNullMemberEntity() {
         return Member.builder()
-                .name("")
+                .email("")
                 .password("")
                 .authority("")
                 .build();

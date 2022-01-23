@@ -1,19 +1,13 @@
 package org.example.domain.member.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,14 +30,11 @@ public class Member implements UserDetails {
     private Long memberId;
 
     @Column(nullable = false)
-    private String name;
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
-    //    @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "user_id"))
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @Builder.Default
     @Column(nullable = false)
     @Builder.Default
     private String authority = Authority.ROLE_USER;
@@ -55,26 +46,31 @@ public class Member implements UserDetails {
         return authorities;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.name;
+        return this.email;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isEnabled() {
         return true;

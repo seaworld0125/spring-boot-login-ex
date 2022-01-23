@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 
 public class JwtUtil {
 
@@ -13,26 +14,30 @@ public class JwtUtil {
     private static final long AUTH_TIME = 1000 * 60 * 30; // 30min
     private static final long REFRESH_TIME = 1000 * 60 * 60 * 24 * 7; // 7days
 
-    public static String createAuthToken(String name) {
+    public static String createAuthToken(String email) {
         Date now = new Date();
         return JWT.create()
                 .withIssuedAt(now)
-                .withSubject(name)
+                .withSubject(email)
                 .withClaim("iss", "DND-team10")
                 .withClaim("token-type", "access-token")
                 .withExpiresAt(new Date(now.getTime() + AUTH_TIME))
                 .sign(ALGORITHM);
     }
 
-    public static String createRefreshToken(String name) {
+    public static String createRefreshToken(String email) {
         Date now = new Date();
         return JWT.create()
                 .withIssuedAt(now)
-                .withSubject(name)
+                .withSubject(email)
                 .withClaim("iss", "DND-team10")
                 .withClaim("token-type", "refresh-token")
                 .withExpiresAt(new Date(now.getTime() + REFRESH_TIME))
                 .sign(ALGORITHM);
+    }
+
+    public static String resolveToken(HttpServletRequest request) {
+        return request.getHeader("X-AUTH_TOKEN");
     }
 
     public static TokenResult verifyToken(String token) {

@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Transactional
+//@Transactional
 class MemberRepositoryTest {
 
     @Autowired
@@ -30,7 +30,7 @@ class MemberRepositoryTest {
     public void addAuthority() {
         memberRepository.save(EntityFactory.createNormalMemberEntity());
 
-        Member savedMember = memberRepository.findMemberEntityByName(EntityFactory.testName)
+        Member savedMember = memberRepository.findMemberByEmail(EntityFactory.testName)
                 .orElse(EntityFactory.createNullMemberEntity());
 
         assertEquals(savedMember.getAuthority(), Authority.ROLE_USER);
